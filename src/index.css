@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0A0A0A;
+  --color-surface: #171717;
+  --color-primary: #A15D43;
+  --color-secondary: #D1A582;
+  --color-tertiary: #E5D1B8;
+  --color-teal: #1D6A5E;
+  --color-brown-900: #2B1D14;
+  --color-brown-800: #4A3121;
+  --color-grey-900: #292929;
+  --color-grey-800: #3F3F3F;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-gray-100 font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .bento-card {
+    @apply bg-surface border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col justify-between overflow-hidden relative;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .bento-card:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), inset 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  }
+}
