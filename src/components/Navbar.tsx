@@ -11,7 +11,7 @@ const Navbar = () => {
 
       const sections = ['home', 'about', 'skills', 'projects', 'contact'];
       let current = '';
-      
+
       // Update active section based on intersecting bounding rect
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -23,17 +23,17 @@ const Navbar = () => {
           }
         }
       }
-      
+
       if (current) {
         setActiveSection(current.charAt(0).toUpperCase() + current.slice(1));
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Initial check
     handleScroll();
-    
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -55,20 +55,30 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'}`}
     >
-      <div className={`flex items-center gap-2 sm:gap-6 px-4 sm:px-8 py-3 rounded-full border transition-all duration-300 ${scrolled ? 'bg-surface/80 border-white/10 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-surface/50 border-white/5 backdrop-blur-sm'}`}>
+      <div className={`flex items-center gap-1 sm:gap-4 px-3 sm:px-6 py-2 rounded-full border transition-all duration-300 ${scrolled ? 'bg-surface/80 border-white/10 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-surface/50 border-white/5 backdrop-blur-sm'}`}>
         {links.map((link) => (
-          <a
+          <motion.a
             key={link}
             href={`#${link.toLowerCase()}`}
             onClick={(e) => handleClick(e, link.toLowerCase())}
-            className={`text-xs sm:text-sm font-medium px-2 py-1 rounded-md transition-colors ${
-              activeSection === link
-                ? 'text-teal'
-                : 'text-gray-300 hover:text-teal/80'
-            }`}
+            className="text-xs sm:text-sm font-medium py-1.5 rounded-full cursor-pointer relative"
+            initial={{ paddingLeft: 16, paddingRight: 16, color: '#9ca3af', backgroundColor: 'transparent', boxShadow: 'none' }}
+            whileHover={{ 
+              paddingLeft: 22, 
+              paddingRight: 22, 
+              color: '#ffffff',
+              backgroundColor: 'rgba(255, 255, 255, 0.05)'
+            }}
+            whileTap={{ 
+              scale: 0.90, 
+              boxShadow: '0 0 20px rgba(139, 92, 246, 0.6)',
+              backgroundColor: 'rgba(139, 92, 246, 0.2)',
+              color: '#ffffff'
+            }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
           >
             {link}
-          </a>
+          </motion.a>
         ))}
       </div>
     </motion.nav>
