@@ -192,6 +192,11 @@ const Hero = () => (
             <button className="resume-btn">
               Resume
             </button>
+            <button className="resume-btn" style={{
+              marginLeft: '1.3rem',
+            }}>
+              Contact Me
+            </button>
           </motion.div>
 
         </motion.div>
