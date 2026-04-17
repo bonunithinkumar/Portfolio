@@ -1,5 +1,5 @@
-
 import { motion } from 'framer-motion';
+import RevealSection from './RevealSection';
 // 3D Canvas rendering has been moved to App.tsx for global parallax
 
 // ─── Animation variants ───────────────────────────────────────────────────────
@@ -27,14 +27,14 @@ const Hero = () => (
     <style>{`
       @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
 
-      /* copper palette */
+      /* Violet Nebula palette */
       :root {
-        --copper-bright : #E8844A;
-        --copper-mid    : #C4622D;
-        --copper-dark   : #8C3D18;
-        --sand          : #F2D9B8;
-        --stone         : #A89070;
-        --ink           : #1A1208;
+        --copper-bright : #8B5CF6;
+        --copper-mid    : #6D28D9;
+        --copper-dark   : #6D28D9;
+        --sand          : #E9D5FF;
+        --stone         : #C4A8FF;
+        --ink           : #07050F;
       }
 
       .hero-rule {
@@ -47,11 +47,11 @@ const Hero = () => (
       .copper-text {
         background: linear-gradient(
           120deg,
-          #F4D3AE 0%,
-          #E87C52 30%,
-          #C4622D 55%,
-          #F4D3AE 80%,
-          #E87C52 100%
+          #E9D5FF 0%,
+          #8B5CF6 30%,
+          #6D28D9 55%,
+          #C4A8FF 80%,
+          #8B5CF6 100%
         );
         background-size: 200% auto;
         -webkit-background-clip: text;
@@ -69,8 +69,8 @@ const Hero = () => (
         font-size: 0.7rem;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: #D47B4A;
-        border: 1px solid rgba(232,132,74,0.35);
+        color: #C4A8FF;
+        border: 1px solid rgba(139,92,246,0.35);
         border-radius: 30px;
         background: transparent;
         cursor: pointer;
@@ -82,18 +82,19 @@ const Hero = () => (
         content: '';
         position: absolute;
         inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(29, 106, 94, 0.2), transparent);
+        background: linear-gradient(90deg, transparent, rgba(109,40,217,0.2), transparent);
         transform: translateX(-100%);
         transition: transform 0.55s ease;
       }
 
       .resume-btn:hover::before { transform: translateX(100%); }
-      .resume-btn:hover { border-color: rgba(29, 106, 94, 0.8); background: rgba(29, 106, 94, 0.1); color: #fff; }
+      .resume-btn:hover { border-color: rgba(109,40,217,0.8); background: rgba(109,40,217,0.15); color: #F3EEFF; }
     `}    </style>
 
-    <section
+    <RevealSection
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      parallaxAmount={40}
     >
       {/* 3D Canvas moved to global Background */}
 
@@ -124,10 +125,10 @@ const Hero = () => (
                 fontSize: '0.68rem',
                 letterSpacing: '0.22em',
                 color: 'var(--stone)',
-                textTransform: 'uppercase',
+
               }}
             >
-              Aspiring Engineer
+              Hello, I'm
             </span>
             <div className="hero-rule" style={{ transform: 'scaleX(-1)' }} />
           </motion.div>
@@ -165,7 +166,7 @@ const Hero = () => (
             <br />
             <span
               style={{
-                color: 'rgba(242,217,184,0.88)',
+                color: 'rgba(233,213,255,0.88)',
                 fontStyle: 'italic',
                 fontWeight: 300,
                 fontSize: '0.62em',
@@ -192,7 +193,10 @@ const Hero = () => (
             <button className="resume-btn">
               Resume
             </button>
-            <button className="resume-btn" style={{
+            <button 
+              className="resume-btn" 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              style={{
               marginLeft: '1.3rem',
             }}>
               Contact Me
@@ -201,7 +205,7 @@ const Hero = () => (
 
         </motion.div>
       </div>
-    </section>
+    </RevealSection>
   </>
 );
 

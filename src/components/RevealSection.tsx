@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 interface RevealSectionProps {
@@ -6,26 +7,41 @@ interface RevealSectionProps {
   id?: string;
   className?: string;
   style?: React.CSSProperties;
+  /** Parallax intensity — 0 means none, 60 (default) is subtle */
+  parallaxAmount?: number;
 }
 
-const RevealSection = ({ children, id, className = '', style = {} }: RevealSectionProps) => {
+const RevealSection = ({
+  children,
+  id,
+  className = '',
+  style = {},
+  parallaxAmount = 60,
+}: RevealSectionProps) => {
+  const ref = useRef<HTMLElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+
+  // Parallax: content drifts upward as you scroll past
+  const y = useTransform(scrollYProgress, [0, 1], [parallaxAmount, -parallaxAmount]);
+
   return (
     <motion.section
+      ref={ref}
       id={id}
-      className={className}
+      className={`overflow-hidden ${className}`}
       style={style}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-10px' }}
     >
+      {/* Fade + slide up on enter */}
       <motion.div
-        variants={{
-          hidden: { clipPath: 'inset(100% 0 0 0)' },
-          visible: { 
-            clipPath: 'inset(0% 0% 0% 0%)', 
-            transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] } 
-          }
-        }}
+        initial={{ opacity: 0, y: 48 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+        style={{ y }}
       >
         {children}
       </motion.div>

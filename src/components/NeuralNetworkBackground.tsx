@@ -11,7 +11,7 @@ const NeuralNetwork = () => {
   const { positions, lines } = useMemo(() => {
     const coords = new Float32Array(particlesCount * 3);
     for (let i = 0; i < particlesCount; i++) {
-      coords[i * 3]     = (Math.random() - 0.5) * 15;
+      coords[i * 3] = (Math.random() - 0.5) * 15;
       coords[i * 3 + 1] = (Math.random() - 0.5) * 15;
       coords[i * 3 + 2] = (Math.random() - 0.5) * 15;
     }
@@ -19,7 +19,7 @@ const NeuralNetwork = () => {
     const linePositions: number[] = [];
     for (let i = 0; i < particlesCount; i++) {
       for (let j = i + 1; j < particlesCount; j++) {
-        const dx = coords[i * 3]     - coords[j * 3];
+        const dx = coords[i * 3] - coords[j * 3];
         const dy = coords[i * 3 + 1] - coords[j * 3 + 1];
         const dz = coords[i * 3 + 2] - coords[j * 3 + 2];
         const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
@@ -40,13 +40,13 @@ const NeuralNetwork = () => {
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.05;
       groupRef.current.rotation.x += delta * 0.02;
-      
+
       // Depth scroll parallax effect
       // Calculate target Y position based on window scroll
       // As the user scrolls down, the neural network moves up slightly (parallax)
       const scrollY = window.scrollY;
-      const targetY = scrollY * 0.002; 
-      
+      const targetY = scrollY * 0.002;
+
       // Smooth interpolation for silky parallax
       groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY, 0.05);
     }
@@ -59,7 +59,7 @@ const NeuralNetwork = () => {
           <bufferAttribute attach="attributes-position" args={[positions, 3]} />
         </bufferGeometry>
         <pointsMaterial
-          color="#E87C52"
+          color="#8B5CF6"
           size={0.08}
           transparent
           opacity={1}
@@ -72,7 +72,7 @@ const NeuralNetwork = () => {
           <bufferAttribute attach="attributes-position" args={[lines, 3]} />
         </bufferGeometry>
         <lineBasicMaterial
-          color="#F4D3AE"
+          color="#C4A8FF"
           transparent
           opacity={0.35}
           blending={THREE.AdditiveBlending}

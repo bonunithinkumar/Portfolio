@@ -31,22 +31,22 @@ const About = () => {
         .about-rule {
           width: 36px;
           height: 1px;
-          background: linear-gradient(90deg, #E87C52, transparent);
+          background: linear-gradient(90deg, #8B5CF6, transparent);
           flex-shrink: 0;
         }
 
         .stat-divider {
           width: 1px;
           height: 32px;
-          background: rgba(232,132,74,0.2);
+          background: rgba(139,92,246,0.2);
           align-self: center;
         }
 
         .edu-card {
-          border: 1px solid rgba(232,132,74,0.18);
+          border: 1px solid rgba(139,92,246,0.18);
           padding: 1.4rem 1.6rem;
           position: relative;
-          background: linear-gradient(135deg, rgba(30, 25, 20, 0.85) 0%, rgba(14, 11, 7, 0.95) 100%);
+          background: linear-gradient(135deg, rgba(20, 12, 40, 0.85) 0%, rgba(7, 5, 15, 0.95) 100%);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border-radius: 16px;
@@ -60,14 +60,14 @@ const About = () => {
           width: 3px; height: 100%;
           border-top-left-radius: 16px;
           border-bottom-left-radius: 16px;
-          background: linear-gradient(to bottom, #E87C52, #8C3D18);
+          background: linear-gradient(to bottom, #8B5CF6, #6D28D9);
         }
         .edu-card:hover {
-          border-color: rgba(232,132,74,0.38);
+          border-color: rgba(139,92,246,0.38);
         }
 
         .glass-panel {
-          background: linear-gradient(135deg, rgba(30, 25, 20, 0.85) 0%, rgba(14, 11, 7, 0.95) 100%);
+          background: linear-gradient(135deg, rgba(20, 12, 40, 0.85) 0%, rgba(7, 5, 15, 0.95) 100%);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border: 1px solid rgba(255, 255, 255, 0.06);
@@ -85,7 +85,7 @@ const About = () => {
           margin: 0 auto;
           overflow: hidden;
           border-radius: 50%;
-          border: 1px solid rgba(232,132,74,0.1);
+          border: 1px solid rgba(139,92,246,0.1);
         }
         .orb-wrap::after {
           content: '';
@@ -95,7 +95,7 @@ const About = () => {
           background: radial-gradient(
             ellipse 65% 65% at 50% 50%,
             transparent 45%,
-            rgba(14,11,7,0.9) 100%
+            rgba(7,5,15,0.9) 100%
           );
           pointer-events: none;
           z-index: 2;
@@ -108,13 +108,13 @@ const About = () => {
           font-family: 'DM Mono', monospace;
           font-size: 0.62rem;
           letter-spacing: 0.12em;
-          color: rgba(168,144,112,0.75);
+          color: rgba(196,168,255,0.75);
           text-transform: uppercase;
         }
         .trait-dot {
           width: 4px; height: 4px;
           border-radius: 50%;
-          background: #E87C52;
+          background: #8B5CF6;
           opacity: 0.7;
           flex-shrink: 0;
         }
@@ -136,7 +136,7 @@ const About = () => {
                 fontSize: '0.62rem',
                 letterSpacing: '0.24em',
                 textTransform: 'uppercase',
-                color: '#A89070',
+                color: '#C4A8FF',
               }}>About</span>
             </motion.div>
 
@@ -205,7 +205,7 @@ const About = () => {
             {/* Divider */}
             <motion.div variants={itemVariants} style={{
               height: '1px',
-              background: 'linear-gradient(90deg, rgba(232,132,74,0.2), transparent)',
+              background: 'linear-gradient(90deg, rgba(139,92,246,0.2), transparent)',
               marginBottom: '1rem',
             }} />
 
@@ -216,7 +216,7 @@ const About = () => {
                 fontSize: '0.62rem',
                 letterSpacing: '0.22em',
                 textTransform: 'uppercase',
-                color: '#A89070',
+                color: '#C4A8FF',
                 display: 'block',
                 marginBottom: '1rem',
               }}>Education</span>
@@ -243,7 +243,7 @@ const About = () => {
                     fontFamily: "'DM Mono', monospace",
                     fontSize: '0.65rem',
                     letterSpacing: '0.1em',
-                    color: '#E87C52',
+                    color: '#8B5CF6',
                     whiteSpace: 'nowrap',
                   }}>2023 — 2027</span>
                 </div>

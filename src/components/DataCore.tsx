@@ -45,10 +45,10 @@ const CoreObject = () => {
   return (
     <group>
       <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-        {/* Outer Wireframe (Teal) */}
+        {/* Outer Wireframe (Deep Violet) */}
         <Icosahedron args={[1.2, 2]} ref={outerRef}>
           <meshBasicMaterial 
-            color="#1D6A5E" 
+            color="#6D28D9" 
             wireframe={true} 
             transparent={true} 
             opacity={0.4} 
@@ -56,18 +56,18 @@ const CoreObject = () => {
           />
         </Icosahedron>
 
-        {/* Inner Solid Core (Copper) */}
+        {/* Inner Solid Core (Medium Purple) */}
         <Icosahedron args={[0.7, 1]} ref={innerRef}>
           <meshStandardMaterial 
-            color="#E87C52" 
+            color="#8B5CF6" 
             roughness={0.3} 
             metalness={0.8}
-            emissive="#8C3D18"
+            emissive="#6D28D9"
             emissiveIntensity={0.5}
           />
         </Icosahedron>
 
-        {/* Orbiting Data Particles (Sand/Copper) */}
+        {/* Orbiting Data Particles (Lavender) */}
         <points ref={pointsRef}>
           <bufferGeometry>
             <bufferAttribute 
@@ -77,7 +77,7 @@ const CoreObject = () => {
             />
           </bufferGeometry>
           <pointsMaterial 
-            color="#F4D3AE" 
+            color="#E9D5FF" 
             size={0.03} 
             transparent 
             opacity={0.8} 
@@ -95,8 +95,8 @@ const DataCore = () => {
     <div className="w-full h-full min-h-[400px]">
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
         <ambientLight intensity={1} />
-        <directionalLight position={[5, 5, 5]} intensity={2} color="#F4D3AE" />
-        <directionalLight position={[-5, -5, -5]} intensity={1} color="#1D6A5E" />
+        <directionalLight position={[5, 5, 5]} intensity={2} color="#E9D5FF" />
+        <directionalLight position={[-5, -5, -5]} intensity={1} color="#6D28D9" />
         <CoreObject />
       </Canvas>
     </div>
