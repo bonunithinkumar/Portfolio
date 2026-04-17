@@ -3,8 +3,8 @@ import RevealSection from './RevealSection';
 
 const Contact = () => {
   return (
-    <RevealSection id="contact" className="py-24 px-6 md:px-12 relative border-t border-white/5">
-      <div className="max-w-4xl mx-auto text-center">
+    <RevealSection id="contact" className="min-h-screen py-24 px-6 md:px-12 relative flex items-center justify-center border-t border-white/5">
+      <div className="max-w-4xl mx-auto w-full flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}

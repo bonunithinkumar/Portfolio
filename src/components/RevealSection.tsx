@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 interface RevealSectionProps {
@@ -7,8 +7,7 @@ interface RevealSectionProps {
   id?: string;
   className?: string;
   style?: React.CSSProperties;
-  /** Parallax intensity — 0 means none, 60 (default) is subtle */
-  parallaxAmount?: number;
+  parallaxAmount?: number; // Kept for backwards compatibility but not used to save performance
 }
 
 const RevealSection = ({
@@ -16,17 +15,8 @@ const RevealSection = ({
   id,
   className = '',
   style = {},
-  parallaxAmount = 60,
 }: RevealSectionProps) => {
   const ref = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
-  // Parallax: content drifts upward as you scroll past
-  const y = useTransform(scrollYProgress, [0, 1], [parallaxAmount, -parallaxAmount]);
 
   return (
     <motion.section
@@ -41,7 +31,6 @@ const RevealSection = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-        style={{ y }}
       >
         {children}
       </motion.div>
@@ -50,3 +39,4 @@ const RevealSection = ({
 };
 
 export default RevealSection;
+

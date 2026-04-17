@@ -113,8 +113,17 @@ const Hero = () => (
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-3xl mx-auto text-center flex flex-col items-center"
+          className="max-w-3xl mx-auto text-center flex flex-col items-center relative"
         >
+          {/* Subtle dark radial gradient behind text */}
+          <div 
+            className="absolute inset-0 z-[-1] pointer-events-none rounded-full"
+            style={{
+              background: 'radial-gradient(circle at center, rgba(7, 5, 15, 0.9) 0%, rgba(7, 5, 15, 0.4) 40%, transparent 70%)',
+              transform: 'scale(1.5)',
+              filter: 'blur(20px)'
+            }}
+          />
 
           {/* eyebrow line */}
           <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">

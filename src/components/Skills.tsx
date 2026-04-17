@@ -23,8 +23,8 @@ const Skills = () => {
   };
 
   return (
-    <RevealSection id="skills" className="py-24 px-6 md:px-12 relative">
-      <div className="max-w-4xl mx-auto" ref={ref}>
+    <RevealSection id="skills" className="min-h-screen py-24 px-6 md:px-12 relative flex items-center justify-center">
+      <div className="max-w-4xl mx-auto w-full" ref={ref}>
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

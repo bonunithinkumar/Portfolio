@@ -120,8 +120,8 @@ const About = () => {
         }
       `}</style>
 
-      <RevealSection id="about" className="pt-24 pb-8 px-6 md:px-12 relative">
-        <div className="max-w-5xl mx-auto" ref={ref}>
+      <RevealSection id="about" className="min-h-screen pt-24 pb-8 px-6 md:px-12 relative flex items-center justify-center">
+        <div className="max-w-5xl mx-auto w-full" ref={ref}>
           <motion.div
             variants={containerVariants}
             initial="hidden"

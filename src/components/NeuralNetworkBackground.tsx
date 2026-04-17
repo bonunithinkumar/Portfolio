@@ -5,8 +5,8 @@ import * as THREE from 'three';
 
 const NeuralNetwork = () => {
   const groupRef = useRef<THREE.Group>(null);
-  const particlesCount = 350;
-  const maxDistance = 2.5;
+  const particlesCount = 120; // Reduced from 350 for performance
+  const maxDistance = 3.5; // Slightly increased to compensate for fewer particles
 
   const { positions, lines } = useMemo(() => {
     const coords = new Float32Array(particlesCount * 3);

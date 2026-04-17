@@ -74,8 +74,8 @@ const Projects = () => {
   };
 
   return (
-    <RevealSection id="projects" className="py-24 px-6 md:px-12 relative">
-      <div className="max-w-6xl mx-auto" ref={ref}>
+    <RevealSection id="projects" className="min-h-screen py-24 px-6 md:px-12 relative flex items-center justify-center">
+      <div className="max-w-6xl mx-auto w-full" ref={ref}>
         <div className="mb-16">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">Featured Work</h2>
           <p className="text-gray-400 max-w-2xl text-lg">

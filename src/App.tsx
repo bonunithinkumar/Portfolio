@@ -6,10 +6,8 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import NeuralNetworkBackground from './components/NeuralNetworkBackground';
-import { useScrollSnap } from './hooks/useScrollSnap';
 
 function App() {
-  useScrollSnap();
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30 text-white font-sans relative">
