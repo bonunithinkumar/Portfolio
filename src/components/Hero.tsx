@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import RevealSection from './RevealSection';
-// 3D Canvas rendering has been moved to App.tsx for global parallax
+
 
 // ─── Animation variants ───────────────────────────────────────────────────────
 const containerVariants = {
@@ -20,12 +21,85 @@ const itemVariants = {
   },
 };
 
+// ─── Typewriter & Rotating Roles ──────────────────────────────────────────────
+const TypewriterRole = ({ text }: { text: string }) => {
+  const [displayText, setDisplayText] = useState('');
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    const startTyping = () => {
+      if (displayText.length < text.length) {
+        timer = setTimeout(() => {
+          setDisplayText(text.substring(0, displayText.length + 1));
+        }, 70);
+      }
+    };
+
+    if (displayText === '') {
+      timer = setTimeout(startTyping, 400); // Wait for the flip-in animation
+    } else {
+      startTyping();
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, text]);
+
+  return (
+    <span className="relative inline-flex items-center h-full">
+      {displayText}
+      <motion.span
+        animate={{ opacity: [1, 0] }}
+        transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+        className="inline-block w-[3px] h-[1.1em] bg-[var(--copper-bright)] ml-[6px]"
+      />
+    </span>
+  );
+};
+
+const RotatingRoles = () => {
+  const roles = ["Data Scientist", "ML Engineer", "AI Developer"];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % roles.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
+  return (
+    <div
+      style={{ fontFamily: "'Space Grotesk', sans-serif", perspective: '1000px' }}
+      className="flex items-center justify-center gap-2 text-white/90 text-base md:text-lg tracking-[0.15em] uppercase h-[48px]"
+    >
+      <span className="w-2 h-2 rounded-full bg-[var(--copper-bright)] shadow-[0_0_8px_var(--copper-bright)]" />
+      <div className="overflow-hidden h-full flex items-center justify-center min-w-[200px] md:min-w-[240px]">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20, rotateX: -90 }}
+            animate={{ opacity: 1, y: 0, rotateX: 0 }}
+            exit={{ opacity: 0, y: -20, rotateX: 90 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            style={{ transformStyle: "preserve-3d" }}
+            className="flex justify-center w-full"
+          >
+            <TypewriterRole text={roles[index]} />
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <span className="w-2 h-2 rounded-full bg-[var(--copper-bright)] shadow-[0_0_8px_var(--copper-bright)]" />
+    </div>
+  );
+};
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 const Hero = () => (
   <>
     {/* Google Fonts — loaded once */}
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@300;400;500&display=swap');
 
       /* Violet Nebula palette */
       :root {
@@ -59,36 +133,52 @@ const Hero = () => (
         background-clip: text;
       }
 
-      .resume-btn {
+      .primary-btn {
         position: relative;
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 0.65rem 2rem;
+        justify-content: center;
+        padding: 0.8rem 2.2rem;
+        background: #F3EEFF;
+        color: #07050F;
         font-family: 'DM Mono', monospace;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
+        font-weight: 600;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: #C4A8FF;
-        border: 1px solid rgba(139,92,246,0.35);
-        border-radius: 30px;
-        background: transparent;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px -3px rgba(139,92,246,0.2);
         cursor: pointer;
-        overflow: hidden;
-        transition: border-color 0.3s, color 0.3s;
+      }
+      .primary-btn:hover {
+        background: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px -5px rgba(139,92,246,0.4);
       }
 
-      .resume-btn::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, transparent, rgba(109,40,217,0.2), transparent);
-        transform: translateX(-100%);
-        transition: transform 0.55s ease;
+      .secondary-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 2.2rem;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(8px);
+        color: #F3EEFF;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        cursor: pointer;
       }
-
-      .resume-btn:hover::before { transform: translateX(100%); }
-      .resume-btn:hover { border-color: rgba(109,40,217,0.8); background: rgba(109,40,217,0.15); color: #F3EEFF; }
+      .secondary-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255,255,255,0.25);
+      }
     `}    </style>
 
     <RevealSection
@@ -98,14 +188,6 @@ const Hero = () => (
     >
       {/* 3D Canvas moved to global Background */}
 
-      {/* ── vignette overlay ── */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 80% at 50% 50%, transparent 30%, rgba(12,8,4,0.72) 100%)',
-        }}
-      />
 
       {/* ── content ── */}
       <div className="container mx-auto px-6 z-10 relative">
@@ -113,10 +195,10 @@ const Hero = () => (
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="max-w-3xl mx-auto text-center flex flex-col items-center relative"
+          className="max-w-3xl mx-auto text-center flex flex-col items-center relative mt-16 md:mt-24"
         >
           {/* Subtle dark radial gradient behind text */}
-          <div 
+          <div
             className="absolute inset-0 z-[-1] pointer-events-none rounded-full"
             style={{
               background: 'radial-gradient(circle at center, rgba(7, 5, 15, 0.9) 0%, rgba(7, 5, 15, 0.4) 40%, transparent 70%)',
@@ -142,49 +224,28 @@ const Hero = () => (
             <div className="hero-rule" style={{ transform: 'scaleX(-1)' }} />
           </motion.div>
 
-          {/* name */}
-          <motion.p
-            variants={itemVariants}
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontStyle: 'italic',
-              fontWeight: 300,
-              fontSize: 'clamp(1rem, 2.2vw, 1.25rem)',
-              letterSpacing: '0.06em',
-              color: 'var(--sand)',
-              opacity: 0.7,
-              marginBottom: '0.6rem',
-            }}
-          >
-            Nithin Kumar Bonu
-          </motion.p>
-
-          {/* main headline */}
           <motion.h1
             variants={itemVariants}
             style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 600,
-              fontSize: 'clamp(3rem, 9vw, 7.5rem)',
-              lineHeight: 0.92,
-              letterSpacing: '-0.01em',
-              marginBottom: '1.6rem',
+              fontFamily: "'Outfit', sans-serif",
+              fontWeight: 700,
+              fontSize: 'clamp(3.5rem, 11vw, 5rem)',
+              lineHeight: 0.9,
+              letterSpacing: '-0.03em',
+              color: '#F3EEFF',
+              marginBottom: '1.8rem',
             }}
           >
-            <span className="copper-text">Data Scientist</span>
-            <br />
-            <span
-              style={{
-                color: 'rgba(233,213,255,0.88)',
-                fontStyle: 'italic',
-                fontWeight: 300,
-                fontSize: '0.62em',
-                letterSpacing: '0.04em',
-              }}
-            >
-              &amp; ML Engineer
-            </span>
+            Nithin Kumar Bonu
           </motion.h1>
+
+          {/* Roles - Elegant Glass Badge instead of Gradient */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center justify-center mb-10"
+          >
+            <RotatingRoles />
+          </motion.div>
 
           {/* thin divider */}
           <motion.div
@@ -199,15 +260,15 @@ const Hero = () => (
 
           {/* CTA */}
           <motion.div variants={itemVariants}>
-            <button className="resume-btn">
+            <button className="primary-btn">
               Resume
             </button>
-            <button 
-              className="resume-btn" 
+            <button
+              className="secondary-btn"
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               style={{
-              marginLeft: '1.3rem',
-            }}>
+                marginLeft: '1.3rem',
+              }}>
               Contact Me
             </button>
           </motion.div>

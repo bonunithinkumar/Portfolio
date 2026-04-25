@@ -53,9 +53,9 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'}`}
+      className={`fixed top-0 left-0 right-0 z-50 flex justify-center transition-all duration-300 ${scrolled ? 'py-5' : 'py-8'}`}
     >
-      <div className={`flex items-center gap-1 sm:gap-4 px-3 sm:px-6 py-2 rounded-full border transition-all duration-300 ${scrolled ? 'bg-surface/80 border-white/10 backdrop-blur-md shadow-lg shadow-black/20' : 'bg-surface/50 border-white/5 backdrop-blur-sm'}`}>
+      <div className={`flex items-center gap-2 sm:gap-5 px-4 sm:px-8 py-2.5 rounded-full border transition-all duration-300 ${scrolled ? 'bg-[#15141E]/90 border-white/10 backdrop-blur-xl shadow-lg shadow-black/40' : 'bg-[#15141E]/60 border-white/5 backdrop-blur-md'}`}>
         {links.map((link) => (
           <motion.a
             key={link}

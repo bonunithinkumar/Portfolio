@@ -6,8 +6,22 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import NeuralNetworkBackground from './components/NeuralNetworkBackground';
+import AllProjects from './components/AllProjects';
 
 function App() {
+  const path = window.location.pathname;
+
+  if (path === '/projects') {
+    return (
+      <div className="min-h-screen bg-background selection:bg-primary/30 text-white font-sans relative">
+        <NeuralNetworkBackground />
+        <Navbar />
+        <main className="relative z-10 block">
+          <AllProjects />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background selection:bg-primary/30 text-white font-sans relative">

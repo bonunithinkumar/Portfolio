@@ -1,127 +1,77 @@
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { Code2, ExternalLink, ArrowRight } from 'lucide-react';
 import RevealSection from './RevealSection';
-import { BarChart3, Binary, Brain, Database, Network } from 'lucide-react';
-
-const projects = [
-  {
-    title: 'Predictive Sales Modeler',
-    description: 'A deep learning model using LSTM networks to forecast seasonal retail sales with 94% accuracy.',
-    Icon: BarChart3,
-    span: 'col-span-1 md:col-span-2 row-span-2',
-    tags: ['Python', 'TensorFlow', 'Pandas'],
-    gradient: 'from-primary/20 to-transparent'
-  },
-  {
-    title: 'Customer Segmentation',
-    description: 'K-Means clustering algorithm to categorize e-commerce customers based on purchasing behavior.',
-    Icon: Database,
-    span: 'col-span-1 row-span-1',
-    tags: ['Scikit-Learn', 'Matplotlib'],
-    gradient: 'from-secondary/20 to-transparent'
-  },
-  {
-    title: 'NLP Sentiment Analyzer',
-    description: 'Real-time Twitter sentiment analysis pipeline using BERT transformers.',
-    Icon: Brain,
-    span: 'col-span-1 row-span-2',
-    tags: ['PyTorch', 'HuggingFace'],
-    gradient: 'from-tertiary/20 to-transparent'
-  },
-  {
-    title: 'Computer Vision Defect Detection',
-    description: 'Automated CNN pipeline for detecting manufacturing defects on assembly lines.',
-    Icon: Network,
-    span: 'col-span-1 row-span-1',
-    tags: ['OpenCV', 'YOLOv5'],
-    gradient: 'from-primary/10 to-secondary/10'
-  },
-  {
-    title: 'Recommendation Engine',
-    description: 'Collaborative filtering system built for a local streaming startup.',
-    Icon: Binary,
-    span: 'col-span-1 md:col-span-2 row-span-1',
-    tags: ['Apache Spark', 'AWS'],
-    gradient: 'from-surface to-surface' // Neutral back
-  }
-];
-
+import { projects } from '../data/projects';
 
 const Projects = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Staggered reveal
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-      },
-    },
-  };
+  const featuredProjects = projects.slice(0, 4);
 
   return (
-    <RevealSection id="projects" className="min-h-screen py-24 px-6 md:px-12 relative flex items-center justify-center">
-      <div className="max-w-6xl mx-auto w-full" ref={ref}>
-        <div className="mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 text-white">Featured Work</h2>
-          <p className="text-gray-400 max-w-2xl text-lg">
-            A selection of my recent data science and machine learning projects demonstrating theoretical knowledge applied to practical problems.
+    <RevealSection id="projects" className="min-h-screen py-16 px-6 md:px-12 flex flex-col justify-center relative z-10 bg-transparent">
+      <div className="max-w-5xl mx-auto w-full">
+        <header className="mb-10 flex flex-col items-center text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3" style={{ fontFamily: "'Outfit', sans-serif" }}>
+            My <span className="text-purple-500">Projects</span>
+          </h2>
+          <p className="text-gray-400 max-w-2xl text-sm md:text-base">
+            A selection of my featured projects showcasing my skills in data analysis, machine learning, and problem-solving.
           </p>
+        </header>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-10">
+          {featuredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="group flex flex-col p-5 rounded-2xl bg-[#08080A]/60 backdrop-blur-md border border-white/[0.05] hover:border-white/[0.15] transition-all duration-300"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="text-lg font-bold text-white tracking-wide" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                  {project.title}
+                </h3>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                  Featured
+                </span>
+              </div>
+              
+              <p className="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 flex-grow line-clamp-3">
+                {project.description}
+              </p>
+              
+              <div className="flex flex-wrap gap-1.5 mb-5">
+                {project.tags.map(tag => (
+                  <span 
+                    key={tag} 
+                    className="px-2 py-1 rounded-full text-[10px] font-medium bg-white/5 text-gray-300"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-4 mt-auto">
+                <a href={project.github} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors">
+                  <Code2 size={14} /> Code
+                </a>
+                <a href={project.demo} className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors">
+                  <ExternalLink size={14} /> Live Demo
+                </a>
+              </div>
+            </motion.div>
+          ))}
         </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-3 auto-rows-[240px] gap-6"
-        >
-          {projects.map((project, index) => {
-            const { Icon } = project;
-            return (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover={{ scale: 1.02 }}
-                className={`bento-card group ${project.span}`}
-              >
-                {/* Subtle gradient background for each card */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-50 z-0`}></div>
-                
-                <div className="relative z-10 flex flex-col h-full">
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-auto text-primary group-hover:bg-teal/10 group-hover:border-teal/30 group-hover:text-teal group-hover:scale-110 transition-all duration-300">
-                    <Icon size={24} />
-                  </div>
-                  
-                  <div className="mt-6">
-                    <h3 className="text-xl font-semibold mb-2 text-white group-hover:text-white transition-colors">{project.title}</h3>
-                    <p className="text-gray-400 text-sm line-clamp-3 mb-4">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map(tag => (
-                        <span key={tag} className="text-xs font-medium px-2.5 py-1 rounded-md bg-white/5 text-gray-300 border border-white/5">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+        <div className="flex justify-center">
+          <a 
+            href="/projects" 
+            className="group flex items-center gap-2 px-5 py-2.5 rounded-full bg-transparent border border-purple-500/30 text-white text-xs font-medium hover:bg-purple-500/10 transition-all duration-300"
+          >
+            View All Projects <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
       </div>
     </RevealSection>
   );
